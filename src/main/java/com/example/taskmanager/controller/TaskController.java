@@ -1,7 +1,9 @@
-package com.example.taskmanager.controller;
+package org.example.taskmanager.controller;
 
+import jakarta.validation.Valid;
+import org.example.taskmanager.dto.TaskRequest;
 import org.example.taskmanager.entity.Task;
-import com.example.taskmanager.service.TaskService;
+import org.example.taskmanager.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,14 +33,17 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
-        Task createdTask = taskService.createTask(task);
+    public ResponseEntity<Task> createTask(@Valid @RequestBody TaskRequest taskRequest) {
+        Task createdTask = taskService.createTask(taskRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
-        Task updatedTask = taskService.updateTask(id, task);
+    public ResponseEntity<Task> updateTask(
+            @PathVariable Long id,
+            @Valid @RequestBody TaskRequest taskRequest
+    ) {
+        Task updatedTask = taskService.updateTask(id, taskRequest);
 
         if (updatedTask != null) {
             return ResponseEntity.ok(updatedTask);
@@ -52,7 +57,7 @@ public class TaskController {
         boolean deleted = taskService.deleteTask(id);
 
         if (deleted) {
-            return ResponseEntity.ok("Gorev silindi.");
+            return ResponseEntity.ok("Görev silindi.");
         }
 
         return ResponseEntity.notFound().build();
