@@ -1,7 +1,7 @@
-package org.example.taskmanager.controller;
+package com.example.taskmanager.controller;
 
 import org.example.taskmanager.entity.Task;
-import org.example.taskmanager.service.TaskService;
+import com.example.taskmanager.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
