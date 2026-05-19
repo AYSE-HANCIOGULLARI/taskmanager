@@ -1,9 +1,9 @@
-package com.example.taskmanager.controller;
+package org.example.taskmanager.controller;
 
 import jakarta.validation.Valid;
-import com.example.taskmanager.dto.TaskRequest;
+import org.example.taskmanager.dto.TaskRequest;
 import org.example.taskmanager.entity.Task;
-import com.example.taskmanager.service.TaskService;
+import org.example.taskmanager.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,5 +61,38 @@ public class TaskController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/completed/{completed}")
+    public List<Task> getTasksByCompletedStatus(@PathVariable boolean completed) {
+        return taskService.getTasksByCompletedStatus(completed);
+    }
+
+    @GetMapping("/search")
+    public List<Task> searchTasksByTitle(@RequestParam String title) {
+        return taskService.searchTasksByTitle(title);
+    }
+
+    @GetMapping("/filter")
+    public List<Task> filterTasks(
+            @RequestParam String title,
+            @RequestParam boolean completed
+    ) {
+        return taskService.filterTasksByTitleAndCompleted(title, completed);
+    }
+
+    @GetMapping("/count")
+    public long countTasksByCompletedStatus(@RequestParam boolean completed) {
+        return taskService.countTasksByCompletedStatus(completed);
+    }
+
+    @GetMapping("/exists")
+    public boolean existsTaskByTitle(@RequestParam String title) {
+        return taskService.existsTaskByTitle(title);
+    }
+
+    @GetMapping("/latest")
+    public List<Task> getLatestFiveTasks() {
+        return taskService.getLatestFiveTasks();
     }
 }
