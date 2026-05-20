@@ -1,7 +1,7 @@
-package org.example.taskmanager.controller;
+package com.example.taskmanager.controller;
 
 import jakarta.validation.Valid;
-import org.example.taskmanager.dto.TaskRequest;
+import com.example.taskmanager.dto.TaskRequest;
 import org.example.taskmanager.entity.Task;
 import org.example.taskmanager.service.TaskService;
 import org.springframework.http.HttpStatus;
